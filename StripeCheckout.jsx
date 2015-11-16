@@ -91,6 +91,11 @@ var ReactStripeCheckout = React.createClass({
     // Optional Props
     // ==============
 
+    // Runs before showing the Stripe dialog to allow for on-submit form validation
+    //   function(callback)
+    //     callback will show the stripe dialog as usual.
+    validate: React.PropTypes.func,
+
     // The currency of the amount (3-letter ISO code). The default is USD.
     currency: React.PropTypes.oneOf([
       'AED','AFN','ALL','AMD','ANG','AOA','ARS','AUD','AWG','AZN','BAM','BBD',
@@ -224,6 +229,8 @@ var ReactStripeCheckout = React.createClass({
   onClick: function() {
     if (ReactStripeCheckout.scriptDidError) {
       console.log('failed to load script');
+    } else if (this.props.validate) {
+      this.props.validate(this.showStripeDialog.bind(this));
     } else if (ReactStripeCheckout.stripeHandler) {
       this.showStripeDialog();
     } else {
