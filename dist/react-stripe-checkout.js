@@ -211,7 +211,7 @@ var ReactStripeCheckout = React.createClass({
     if (ReactStripeCheckout.scriptDidError) {
       console.log('failed to load script');
     } else if (this.props.validate) {
-      this.props.validate(this.showStripeDialog.bind(this));
+      this.props.validate(this.showStripeDialog);
     } else if (ReactStripeCheckout.stripeHandler) {
       this.showStripeDialog();
     } else {
